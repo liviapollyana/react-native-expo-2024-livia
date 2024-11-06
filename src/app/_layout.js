@@ -1,4 +1,4 @@
-import { router, Stack } from "expo-router";
+import { router, Stack, useSegments } from "expo-router";
 import { useEffect } from "react";
 import { AppProvider } from "../hooks";
 import { useAuth } from "../hooks/Auth";

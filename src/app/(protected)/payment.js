@@ -1,8 +1,9 @@
 import { router } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { Button, StyleSheet, TextInput, View } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import {Picker} from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 export default function Payments() {
@@ -116,6 +117,8 @@ export default function Payments() {
     }]
   ]);
   const [id, setId] = useState(1);
+  const [data, setData] = useState(new Date());
+  const [viewCalendar, setViewCalendar] = useState(false)
 
   return (
     <View style={styles.content}>
@@ -130,10 +133,23 @@ export default function Payments() {
         />
       </View>
       <View style={styles.inputView}>
-        <Picker selectedValue={id} onValueChange></Picker>
+      <Picker selectedValue={id} onValueChange={(itemValue, index)=>{
+          setId(itemValue)
+        }}
+        style={{ width: "100%" }}
+      >
+        {sugestoes?.map((item) => {
+          return <Picker.Item  key={item.id} label={item.nome} value={item.id} />
+        })}
+      </Picker>
       </View>
       <View style={styles.inputView}>
-        <TextInput placeholder="Data"/>
+        {viewCalendar && (
+        <DataTimePicker 
+        value={data} 
+        onChange={(event, selectedDate)=>setData(selectedDate)}
+        />
+        )}
       </View>
       <View style={styles.inputView}>
         <TextInput placeholder="Observações"/>
